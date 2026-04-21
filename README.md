@@ -6,6 +6,18 @@ repository: https://github.com/yourusername/chatbot_ui
 issue_tracker: https://github.com/yourusername/chatbot_ui/issues
 documentation: https://github.com/yourusername/chatbot_ui/blob/main/README.md
 
+// Step 1: Choose your AI provider
+final aiService = LocalAIService(); // or OpenAIService, GroqService, GeminiService
+
+// Step 2: Add the floating chat bubble to your app
+FloatingChatBubble(
+  service: aiService,
+  title: 'Chat Support',
+  bubbleColor: Colors.blue,
+)
+
+// That's it! Your users get a beautiful chat interface
+
 environment:
   sdk: '>=3.0.0 <4.0.0'
   flutter: '>=3.0.0'

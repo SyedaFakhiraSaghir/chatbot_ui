@@ -7,10 +7,13 @@ export 'providers/chat_provider.dart';
 
 export 'services/ai_service_interface.dart';
 export 'services/openai_service.dart';
+export 'services/groq_service.dart';
+export 'services/gemini_service.dart';
 export 'services/local_ai_service.dart';
 export 'services/custom_ai_service.dart';
 
 export 'widgets/chat_ui.dart';
+export 'widgets/floating_chat_bubble.dart'; // Add this
 export 'widgets/chat_bubble.dart';
 export 'widgets/chat_input_bar.dart';
 export 'widgets/chat_message_list.dart';
