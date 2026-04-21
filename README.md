@@ -1,7 +1,5 @@
 name: chatbot_ui
-description: >-
-  A customizable Flutter chat UI package with easy integration for local or
-  API-based AI chatbots.
+description: A customizable Flutter chat UI package with easy integration for local or API-based AI chatbots.
 version: 1.0.0
 homepage: https://github.com/yourusername/chatbot_ui
 repository: https://github.com/yourusername/chatbot_ui
