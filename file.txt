@@ -1,0 +1,84 @@
+chatbot_ui/
+├── pubspec.yaml
+├── README.md
+├── CHANGELOG.md
+├── LICENSE
+├── lib/
+│   ├── chatbot_ui.dart
+│   ├── models/
+│   │   ├── chat_message.dart
+│   │   ├── chat_user.dart
+│   │   └── chat_theme.dart
+│   ├── providers/
+│   │   └── chat_provider.dart
+│   ├── widgets/
+│   │   ├── chat_bubble.dart
+│   │   ├── chat_input_bar.dart
+│   │   ├── chat_message_list.dart
+│   │   ├── typing_indicator.dart
+│   │   └── chat_ui.dart
+│   └── services/
+│       ├── ai_service_interface.dart
+│       ├── openai_service.dart
+│       ├── local_ai_service.dart
+│       └── custom_ai_service.dart
+├── example/
+│   ├── lib/
+│   │   └── main.dart
+│   ├── pubspec.yaml
+│   └── README.md
+└── test/
+    └── chatbot_ui_test.dart
+
+
+Quick Start
+
+1. Create a service
+
+dart
+// Local AI
+final service = LocalAIService();
+
+// OpenAI
+final service = OpenAIService(apiKey: 'your-api-key');
+
+// Custom service
+class MyAIService implements AIService {
+  // Implement your own AI logic
+}
+2. Create provider and UI
+
+dart
+final chatProvider = ChatProvider(service);
+
+ChatUI(
+  chatProvider: chatProvider,
+  title: 'AI Assistant',
+  theme: ChatTheme.light(),
+)
+Customization
+
+Custom Theme
+
+dart
+ChatTheme(
+  primaryColor: Colors.purple,
+  userBubbleColor: Colors.purple,
+  assistantBubbleColor: Colors.grey,
+  borderRadius: 20,
+  showAvatars: true,
+)
+Custom Users
+
+dart
+ChatUser(
+  id: 'custom',
+  name: 'Custom AI',
+  avatarUrl: 'https://example.com/avatar.png',
+)
+
+ChatUI(
+  // ...
+  user: customUser,
+  assistant: customAssistant,
+)
