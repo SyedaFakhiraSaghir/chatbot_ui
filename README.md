@@ -1,63 +1,14 @@
-CHATBOT UI
-
-A customizable Flutter chat UI package with easy integration for local or API-based AI chatbots.
-
-version: 0.1.1
-homepage: https://github.com/SyedaFakhiraSaghir/chatbot_ui
-repository: https://github.com/SyedaFakhiraSaghir/chatbot_ui
-issue_tracker: https://github.com/SyedaFakhiraSaghir/chatbot_ui/issues
-documentation: https://github.com/SyedaFakhiraSaghir/chatbot_ui/blob/main/README.md
-
-----------------------------------------------------------------------------------------------------
-
-HOW TO USE:
-
-// Step 1: Choose your AI provider
-final aiService = LocalAIService(); // or OpenAIService, GroqService, GeminiService
-
-// Step 2: Add the floating chat bubble to your app
-FloatingChatBubble(
-  service: aiService,
-  title: 'Chat Support',
-  bubbleColor: Colors.blue,
-)
-
-// That's it! 
-// Your users get a beautiful chat interface
-
-----------------------------------------------------------------------------------------------------
-environment:
-  sdk: '>=3.0.0 <4.0.0'
-  flutter: '>=3.0.0'
-
-dependencies:
-  flutter:
-    sdk: flutter
-  provider: ^6.0.5
-  intl: ^0.18.1
-  http: ^1.1.0
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
-
-flutter:
-  uses-material-design: true
-
-topics:
-  - chat
-  - ui
-  - ai
-  - chatbot
-  - messaging
-
-
-  Overview
+Chatbot UI
 
 Chatbot UI is a comprehensive Flutter package that provides a ready-to-use chat interface with seamless integration for multiple AI providers including OpenAI, Groq, Gemini, and local AI services.
 
-Key Features
+<img width="583" height="842" alt="image" src="https://github.com/user-attachments/assets/26d6c9f0-d75f-49fd-b09f-7502f20f0bf7" />
+<img width="540" height="843" alt="image" src="https://github.com/user-attachments/assets/4ed4c039-2af6-4490-92f5-6f1a6aed98b2" />
+<img width="538" height="858" alt="image" src="https://github.com/user-attachments/assets/86fd29c3-de25-4998-84a8-5dd87a047ec5" />
+<img width="539" height="835" alt="image" src="https://github.com/user-attachments/assets/efc3a9d0-3308-468f-b9c6-19d0799800ce" />
+
+
+Features
 
 🎨 Fully Customizable UI - Themes, colors, bubbles, and animations
 🤖 Multiple AI Providers - OpenAI, Groq, Gemini, Local AI
@@ -75,7 +26,7 @@ Add to your pubspec.yaml:
 
 yaml
 dependencies:
-  chatbot_ui: ^1.0.0
+  chatbot_ui: ^0.1.1
 2. Install Package
 
 bash
@@ -123,6 +74,20 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+Floating Chat Bubble (Easiest Integration)
+
+dart
+// Step 1: Choose your AI provider
+final aiService = LocalAIService(); // or OpenAIService, GroqService, GeminiService
+
+// Step 2: Add the floating chat bubble to your app
+FloatingChatBubble(
+  service: aiService,
+  title: 'Chat Support',
+  bubbleColor: Colors.blue,
+)
+
+// That's it! Your users get a beautiful chat interface
 AI Providers
 
 1. Local AI Service (No API Key Required)
@@ -358,161 +323,6 @@ ChatUI(
   assistant: customAssistant,
   // ...
 )
-Advanced Usage
-
-Custom AI Service Implementation
-
-dart
-class MyCustomAIService implements AIService {
-  @override
-  Future<String> sendMessage({
-    required String message,
-    List<ChatMessage> conversationHistory = const [],
-    Map<String, dynamic>? options,
-  }) async {
-    // Implement your API call
-    final response = await myApi.send(message);
-    return response;
-  }
-
-  @override
-  Stream<String> sendMessageStream({
-    required String message,
-    List<ChatMessage> conversationHistory = const [],
-    Map<String, dynamic>? options,
-  }) async* {
-    // Implement streaming response
-    final stream = myApi.sendStream(message);
-    await for (final chunk in stream) {
-      yield chunk;
-    }
-  }
-
-  @override
-  Future<void> clearContext() async {
-    // Clear conversation history
-  }
-
-  @override
-  Future<bool> isAvailable() async {
-    // Check if service is available
-    return true;
-  }
-
-  @override
-  void setOptions(Map<String, dynamic> options) {
-    // Set custom options
-  }
-}
-Error Handling
-
-dart
-class MyChatScreen extends StatefulWidget {
-  @override
-  State<MyChatScreen> createState() => _MyChatScreenState();
-}
-
-class _MyChatScreenState extends State<MyChatScreen> {
-  late ChatProvider _chatProvider;
-
-  @override
-  void initState() {
-    super.initState();
-    _chatProvider = ChatProvider(LocalAIService());
-    _chatProvider.addListener(_onProviderChange);
-  }
-
-  void _onProviderChange() {
-    if (_chatProvider.error != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: ${_chatProvider.error}'),
-          backgroundColor: Colors.red,
-          action: SnackBarAction(
-            label: 'Retry',
-            onPressed: _chatProvider.retryLastMessage,
-          ),
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChatUI(
-      chatProvider: _chatProvider,
-      title: 'AI Chat',
-    );
-  }
-
-  @override
-  void dispose() {
-    _chatProvider.removeListener(_onProviderChange);
-    _chatProvider.dispose();
-    super.dispose();
-  }
-}
-Conversation Management
-
-dart
-// Save conversation
-void saveConversation(ChatProvider provider) {
-  final messages = provider.messages;
-  final json = messages.map((msg) => {
-    'role': msg.role.toString(),
-    'content': msg.content,
-    'timestamp': msg.timestamp.toIso8601String(),
-  }).toList();
-  
-  // Save to file or database
-  saveToDatabase(json);
-}
-
-// Load conversation
-void loadConversation(ChatProvider provider, List<Map<String, dynamic>> savedMessages) {
-  for (var msg in savedMessages) {
-    final role = MessageRole.values.firstWhere(
-      (r) => r.toString() == msg['role']
-    );
-    final message = ChatMessage(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      content: msg['content'],
-      role: role,
-      timestamp: DateTime.parse(msg['timestamp']),
-    );
-    provider.messages.add(message);
-  }
-  provider.notifyListeners();
-}
-Multi-language Support
-
-dart
-class LocalizedLocalAIService extends LocalAIService {
-  final String locale;
-  
-  LocalizedLocalAIService({required this.locale}) : super(
-    customResponses: _getLocalizedResponses(locale),
-  );
-  
-  static Map<String, String> _getLocalizedResponses(String locale) {
-    switch (locale) {
-      case 'es':
-        return {
-          'hello': '¡Hola! ¿Cómo puedo ayudarte?',
-          'help': '¿En qué puedo asistirte?',
-          'bye': '¡Adiós!',
-        };
-      case 'fr':
-        return {
-          'hello': 'Bonjour! Comment puis-je vous aider?',
-          'help': 'Comment puis-je vous assister?',
-          'bye': 'Au revoir!',
-        };
-      default:
-        return {};
-    }
-  }
-}
 API Reference
 
 ChatMessage Class
@@ -718,11 +528,17 @@ void dispose() {
 }
 Support & Resources
 
-GitHub Repository: github.com/yourusername/chatbot_ui
-Issue Tracker: github.com/yourusername/chatbot_ui/issues
+GitHub Repository: github.com/SyedaFakhiraSaghir/chatbot_ui
+Issue Tracker: github.com/SyedaFakhiraSaghir/chatbot_ui/issues
+Documentation: github.com/SyedaFakhiraSaghir/chatbot_ui/blob/main/README.md
 Examples: Check the /example folder
-API Documentation: pub.dev/documentation/chatbot_ui
+Topics
+
+chat
+ui
+ai
+chatbot
+messaging
 License
 
 MIT License - feel free to use in commercial and personal projects.
-
