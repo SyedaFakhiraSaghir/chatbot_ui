@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+dependency_overrides:
   chatbot_ui:
     path: ../
 
